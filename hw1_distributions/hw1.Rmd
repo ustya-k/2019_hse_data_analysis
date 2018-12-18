@@ -5,5 +5,7 @@ integrate(dlnorm, 25, 50, mean = 3, sd = 0.5)$value
 
 ### 1.2
 ```{r}
-0.9 - 0.1
+l = qlnorm(0.1, mean = 3, sd = 0.5)
+u = qlnorm(0.9, mean = 3, sd = 0.5)
+integrate(dlnorm, l, u, mean = 3, sd = 0.5)$value
 ```
