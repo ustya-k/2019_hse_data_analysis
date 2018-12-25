@@ -1,0 +1,12 @@
+### 1.1
+```{r}
+phoible <- read.csv("https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/students/ustya-k/hw2_Bayesian_inference/hw2_phoible.csv")
+phoible$consonant.ratio <- phoible$consonants / phoible$phonemes
+phoible <- arrange(phoible, desc(consonant.ratio))
+phoible[1,]$language
+```
+
+### 1.2
+```{r}
+
+```
