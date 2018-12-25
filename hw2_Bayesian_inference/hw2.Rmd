@@ -1,4 +1,4 @@
-### 1.1
+### 1
 ```{r}
 phoible <- read.csv("https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/students/ustya-k/hw2_Bayesian_inference/hw2_phoible.csv")
 phoible$consonant.ratio <- phoible$consonants / phoible$phonemes
@@ -6,7 +6,10 @@ phoible <- arrange(phoible, desc(consonant.ratio))
 phoible[1,]$language
 ```
 
-### 1.2
+### 2
 ```{r}
-
+phoible$cbeta <- ((phoible$consonant.ratio ^ (alpha - 1)) * (1 - phoible$consonant.ratio) ^ (b - 1)) / beta(alpha, b)
+phoible$cabs <- abs(phoible$cbeta - phoible$consonant.ratio)
+phoible <- arrange(phoible, desc(cabs))
+phoible[1:6,]$language
 ```
