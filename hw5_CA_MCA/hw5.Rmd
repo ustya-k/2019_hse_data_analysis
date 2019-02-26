@@ -1,0 +1,43 @@
+### 5.1
+
+chairs <- read.csv('hw5_chairs.csv')
+MCA <- MASS::mca(chairs[,-c(1,2,3)])
+chairs <- cbind(chairs, MCA$rs)
+variables <- as_tibble(MCA$cs)
+variables$var_names <- rownames(MCA$cs)
+chairs %>% 
+    ggplot(aes(`1`, `2`))+
+    geom_point(aes(color = Category))+
+    stat_ellipse(aes(color = Category))+
+    geom_text(data = variables, aes(`1`, `2`, label = var_names))+
+    theme_bw()+
+    scale_x_continuous(limits = c(-0.015, 0.015))
+
+
+### 5.2
+
+Из графика можно видеть, что по признакам можно легко отличить Sessel от Stuhl. Например, Sessel свойственно наличие подлокотников (Arms.Yes), а Stuhl их отсутствие (Arms.No). Аналогично Sessel из ткани (MaterialSeat.Fabric), кожи (MaterialSeat.Leather), а Stuhl из металла (MaterialSeat.Metal), пластика (MaterialSeat.Plastic), и т.д. Однако есть и признаки, по которым их сложно различить, поскольку они применимы к ним обоим -- мебель для взрослых (Age.Adult), нет экономичного способа хранения (SaveSpace.No).
+
+### 5.3
+
+colreg <- read.csv("hw5_colreg.csv")
+colregca <- ca(colreg[-5])
+colreg_col <- data.frame(colregca$colcoord)
+colreg_col$rows <- rownames(colregca$colcoord)
+colreg_row <- data.frame(colregca$rowcoord)
+colreg_row$rows <- colreg$colors
+
+colreg_col %>% 
+    ggplot(aes(Dim1, Dim2, label = rows))+
+    geom_text(color = "blue")+
+    geom_text(data = colreg_row, color = "red")+
+    theme_bw()+
+    labs(x = "Dim1 (77.9%)",
+         y = "Dim2 (19.2%)")
+
+
+### 5.4
+
+Из графика можно сделать вывод, что использование слова black особенно характерно для устной речи. White для академической. Blue, yellow схожи по распределению и характерны для художественной речи, как и gray. Pink, purple, brown менее характерны, но всё ещё более значимы, чем для других типов речи. Для публицистики свойственно использование слова green, менее значимы orange и red.
+
+###
